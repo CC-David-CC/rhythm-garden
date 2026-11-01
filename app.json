@@ -1,0 +1,6 @@
+{
+  "assets": [
+    "node_modules/@rive-app/canvas/rive.wasm",
+    "node_modules/@rive-app/canvas/rive_fallback.wasm"
+  ]
+}
