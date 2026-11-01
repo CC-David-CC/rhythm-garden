@@ -1,0 +1,119 @@
+{
+  "category": "04-rive-interactives",
+  "id": "rhythm-garden",
+  "title": "Rhythm Garden",
+  "genre": "Rhythm-tap game",
+  "pitch": "Tap four animated flowers to a short original rhythm, then watch the garden bloom from your performance.",
+  "capabilities": [
+    "Rive character timing and coordinated artboards",
+    "Web Audio scheduling",
+    "Latency calibration and touch precision"
+  ],
+  "rules": [
+    "Four lanes; hits judged against an audio-time schedule with explicit windows.",
+    "Game scoring uses the audio clock plus calibrated input timestamp, not Rive frames or requestAnimationFrame.",
+    "Pause saves progress at a phrase boundary; no promise of sample-exact resume after device audio suspension."
+  ],
+  "content": "Three short original tracks, practice mode, tap calibration and a visual-only practice option.",
+  "state": [
+    "track/phrase id",
+    "score/combo and judgments to boundary",
+    "latency calibration",
+    "difficulty and completed tracks"
+  ],
+  "actions": [
+    {
+      "command": "hit-lane",
+      "desktop": "D/F/J/K or click pads",
+      "phone": "Four large pads with multi-touch",
+      "xr": "Not applicable; plays as a flat browser app."
+    },
+    {
+      "command": "calibrate",
+      "desktop": "Tap calibration button in rhythm",
+      "phone": "Same tap calibration",
+      "xr": "Not applicable; plays as a flat browser app."
+    },
+    {
+      "command": "restart-phrase",
+      "desktop": "Retry phrase",
+      "phone": "Retry phrase",
+      "xr": "Not applicable; plays as a flat browser app."
+    }
+  ],
+  "rive": {
+    "asset": "rhythm-flowers.riv",
+    "role": "Four animated flowers and combo bloom; app owns hit windows and timing.",
+    "properties": {
+      "lane": "integer 0..3",
+      "energy": "number 0..1",
+      "combo": "integer"
+    },
+    "events": [
+      "cue",
+      "hit",
+      "miss",
+      "bloom"
+    ],
+    "states": [
+      "idle",
+      "anticipate",
+      "hit",
+      "miss",
+      "bloom"
+    ],
+    "artboard": "Main",
+    "stateMachine": "Presentation",
+    "assetStatus": "to_author"
+  },
+  "polish": [
+    "No strobe effects; shape cues supplement color",
+    "Optional reduced-motion static note markers",
+    "Input/audio calibration visible, not hidden compensation"
+  ],
+  "tests": [
+    "Rendering stalls do not change judgment time.",
+    "Two touch pads can score simultaneous notes independently.",
+    "Audio suspension pauses the game explicitly.",
+    "Rive event cannot create a hit judgment.",
+    "Saved score is restored at documented phrase boundary.",
+    "Muted/visual practice remains playable."
+  ],
+  "loop": [
+    "schedule next short audio phrase",
+    "collect timestamped lane intents",
+    "judge against authoritative audio-time notes",
+    "commit score and combo",
+    "drive Rive cues from scheduled phase and committed judgments",
+    "checkpoint only at completed phrase"
+  ],
+  "save": "Phrase checkpoint; loading restarts the saved phrase boundary with countdown, not a fictitious continuous audio clock.",
+  "wave": 3,
+  "specVersion": 1,
+  "status": "planned",
+  "implementation": "not_started",
+  "runtimeTests": "not_run",
+  "engine": "Rive web runtime + application state",
+  "singlePlayer": true,
+  "phoneRequired": true,
+  "mountContract": {
+    "export": "mount",
+    "synchronous": true,
+    "returns": [
+      "element",
+      "dispose"
+    ],
+    "productionEntry": "index.mjs",
+    "suppliedEntry": "index.pseudo.mjs"
+  },
+  "xrRequired": false,
+  "riveRequired": true,
+  "riveAssetIncluded": false,
+  "documentKind": "Phrase checkpoint; loading restarts the saved phrase boundary with countdown, not a fictitious continuous audio clock.",
+  "sources": [
+    "S14",
+    "S15",
+    "S16",
+    "S17"
+  ]
+}
