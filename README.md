@@ -34,3 +34,8 @@ CODI_PHONE=1 node tests/rhythm-garden-browser.test.mjs
 node tests/rhythm-garden-safety.test.mjs
 node tests/rhythm-garden-account.test.mjs
 ```
+
+The isolated `tests/rhythm-garden-input-review.test.mjs` verifies one judgment
+per accessibility click and emulated touch, held-key repeat guards, and account
+sync/reopen on desktop and emulated phone. It does not establish physical
+touch-to-audio latency or complete medal runs.

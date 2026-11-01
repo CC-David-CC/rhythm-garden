@@ -82,10 +82,10 @@ export async function startView(host:Host,signal:AbortSignal):Promise<ViewHandle
  const laneButtons:HTMLButtonElement[]=[];
  for(let lane=0;lane<LANE_COUNT;lane++){
   const name=["Red flower","Gold flower","Green flower","Blue flower"][lane];
-  const button=textButton(`${name} · ${LANE_KEYS[lane].toUpperCase()}`,()=>hit(lane));
+  const button=textButton(`${name} · ${LANE_KEYS[lane].toUpperCase()}`,()=>{});
   button.setAttribute("aria-label",`${name} lane ${lane+1}`);
   button.style.borderColor=LANE_COLORS[lane];
-  button.addEventListener("pointerdown",event=>{event.preventDefault();hit(lane)});
+  button.addEventListener("pointerdown",event=>{if(event.button!==0)return;event.preventDefault();hit(lane)});
   button.addEventListener("click",event=>{if(event.detail===0)hit(lane)});
   laneButtons.push(button);pads.append(button);
  }
@@ -279,7 +279,7 @@ export async function startView(host:Host,signal:AbortSignal):Promise<ViewHandle
  const loop=(now:number)=>{if(disposed)return;watchWindow();if(!paused&&performance.now()>=readyUntil){const elapsed=audioTime()-phraseStart;session.registerMiss(elapsed);if(elapsed>=PHRASE_LENGTH_MS)finishPhrase()}draw(now);refresh();frame=requestAnimationFrame(loop)};frame=requestAnimationFrame(loop);
  const observer=new ResizeObserver(()=>draw(performance.now()));observer.observe(stage);
 
- const keydown=(event:KeyboardEvent)=>{if(event.target instanceof HTMLInputElement||event.target instanceof HTMLSelectElement||event.target instanceof HTMLTextAreaElement)return;if(event.key==="Escape"){event.preventDefault();toggleRun();return}const lane=LANE_KEYS.indexOf(event.key.toLowerCase());if(lane>=0){event.preventDefault();hit(lane)}};
+ const keydown=(event:KeyboardEvent)=>{if(event.target instanceof HTMLInputElement||event.target instanceof HTMLSelectElement||event.target instanceof HTMLTextAreaElement)return;if(event.key==="Escape"){event.preventDefault();if(!event.repeat)toggleRun();return}const lane=LANE_KEYS.indexOf(event.key.toLowerCase());if(lane>=0){event.preventDefault();if(!event.repeat)hit(lane)}};
  element.addEventListener("keydown",keydown);
  const suspend=()=>{if(!paused)finishPhrase();audio.suspend();announce("Garden paused when its window lost attention. Press Resume when ready.")};
  const blur=(event:FocusEvent)=>{if(event.target===window)suspend()};
