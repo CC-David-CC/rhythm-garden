@@ -26,9 +26,9 @@ evidence also remain open.
 ## Verification
 
 ```sh
-npm install --prefix apps/system/rhythm-garden --ignore-scripts
-npm run typecheck --prefix apps/system/rhythm-garden
-npm test --prefix apps/system/rhythm-garden
+npm install --prefix apps/games/04-rive-interactives/rhythm-garden --ignore-scripts
+npm run typecheck --prefix apps/games/04-rive-interactives/rhythm-garden
+npm test --prefix apps/games/04-rive-interactives/rhythm-garden
 node tests/rhythm-garden-browser.test.mjs
 CODI_PHONE=1 node tests/rhythm-garden-browser.test.mjs
 node tests/rhythm-garden-safety.test.mjs
