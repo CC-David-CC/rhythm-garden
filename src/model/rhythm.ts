@@ -1,4 +1,4 @@
-import { Rng } from "./rng.js";
+import { Rng } from "./rng.ts";
 
 export const LANE_COUNT = 4;
 export const PERFECT_WINDOW_MS = 50;

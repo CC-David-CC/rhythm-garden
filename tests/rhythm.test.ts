@@ -1,11 +1,11 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "./test-shim.ts";
 import {
   PERFECT_WINDOW_MS,
   RhythmSession,
   decodeSave,
   encodeSave,
   sessionFromSave,
-} from "../src/model/rhythm.js";
+} from "../src/model/rhythm.ts";
 
 describe("RhythmSession rules", () => {
   it("judgments use the audio clock, not wall time", () => {

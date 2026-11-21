@@ -3,20 +3,15 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "main": "./dist/index.mjs",
-  "exports": {
-    ".": "./dist/index.mjs"
-  },
   "scripts": {
     "build": "vite build",
-    "test": "vitest run tests",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
-    "@rive-app/canvas": "2.49.0"
+    "phaser": "4.2.1"
   },
   "devDependencies": {
-    "typescript": "7.0.2",
-    "vitest": "5.0.5"
+    "typescript": "7.0.2"
   }
 }

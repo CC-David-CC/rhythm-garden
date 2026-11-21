@@ -255,7 +255,7 @@ export async function startView(host:Host,signal:AbortSignal):Promise<ViewHandle
   for(let lane=0;lane<laneButtons.length;lane++)laneButtons[lane].disabled=busy||paused;
  }
  function draw(now:number):void{
-  const rect=stage.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2),width=Math.max(320,rect.width),height=Math.max(280,rect.height);
+  const rect=stage.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,4),width=Math.max(320,rect.width),height=Math.max(280,rect.height);
   if(canvas.width!==Math.round(width*dpr)||canvas.height!==Math.round(height*dpr)){canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr)}
   const ctx=canvas.getContext("2d");if(!ctx)return;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);
   ctx.fillStyle=contrast.value==="high"?"#071008":"#17311f";ctx.fillRect(0,0,width,height);

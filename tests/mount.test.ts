@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { mount } from "../src/mount.js";
+import { describe, expect, it } from "./test-shim.ts";
+import { mount } from "../src/mount.ts";
 
 interface FakeElement {
   dataset: Record<string, string>;
@@ -27,12 +27,13 @@ function fakeMake(): (tagName: string, className?: string) => HTMLElement {
 
 describe("Rhythm Garden mount contract", () => {
   it("returns the contract shape and disposes idempotently", () => {
+    const make = fakeMake();
     const result = mount({
       signal: new AbortController().signal,
       ui: {
-        make: fakeMake(),
-        textButton: () => document.createElement("button"),
-        appInput: () => document.createElement("input"),
+        make,
+        textButton: () => make("button"),
+        appInput: () => make("input"),
       },
       storage: {
         signedInSubject: () => "test",
@@ -46,3 +47,4 @@ describe("Rhythm Garden mount contract", () => {
     result.dispose();
   });
 });
+
